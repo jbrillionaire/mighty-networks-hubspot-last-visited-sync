@@ -46,12 +46,14 @@ Mighty's own docs and API schema show the following:
    application, a Host signs in and approves it, and you swap the code for 1-hour access
    tokens plus a refresh token. If your admin menu has no **OAuth Applications** or
    **Headless API** item, your network doesn't have access yet. Ask Mighty for it.
-4. **No webhook fires on a visit.** The webhook event list has member lifecycle events
-   (joined, left, updated, plan changed, purchased, tags, course progress) and content
-   events (post, comment, reaction, RSVP). None of them is "member visited". A member who
-   logs in every day to read and never posts sends no events. Their `lastActiveAt` still
-   moves every day. Tools like Zapier or Make that run on those same events can't see
-   visits either. The GraphQL schema has no subscriptions, so the only option is polling.
+4. **No webhook event returns the last visited date.** Mighty has 44 webhook event
+   types: member lifecycle events (joined, left, updated, plan changed, purchased,
+   tags, course progress) and content events (post, comment, reaction, RSVP). None of
+   them fires when a member visits, and none of them carries the last visited date,
+   not even the member events. A member who logs in every day to read and never posts
+   sends no events at all, while their `lastActiveAt` moves every day. Zapier and Make
+   run on those same events, so they can't get the date either. The GraphQL schema
+   has no subscriptions, so the only way to get it is to poll the Headless API.
 5. **You can't pull it for one contact at a time on demand.** A HubSpot workflow that
    calls Mighty for each contact would run once per contact, and the 1-hour tokens have
    to be refreshed. HubSpot workflow secrets are fixed, so a workflow has nowhere to save
