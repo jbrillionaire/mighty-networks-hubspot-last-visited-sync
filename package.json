@@ -1,0 +1,11 @@
+{
+  "name": "mighty-networks-hubspot-last-visited-sync",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Daily Google Apps Script sync of Mighty Networks member last-visited dates into HubSpot contacts.",
+  "scripts": {
+    "test": "node --test tests/"
+  },
+  "engines": { "node": ">=20" }
+}
