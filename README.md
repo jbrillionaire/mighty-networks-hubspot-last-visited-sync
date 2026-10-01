@@ -132,10 +132,10 @@ problems that stayed hidden:
 
 | Path | What it is | Where it goes |
 |---|---|---|
-| `apps-script/MN_Member_Sync.gs` | OAuth setup and token refresh, the roster pull, UTC date pinning, the `MN Live` tab | Apps Script editor: a script file named `MN_Member_Sync` (Step 3) |
-| `apps-script/HubSpot_Push.gs` | Change detection, the search-then-update push, `MN Unmatched` link/create, the daily trigger | Same project: a script file named `HubSpot_Push` (Step 3) |
-| `tests/harness.mjs` | Runs both `.gs` files unchanged in Node against fake Apps Script, Mighty and HubSpot services | Local only |
-| `tests/sync.test.mjs` | 19 tests: OAuth, paging, UTC dates, change-only pushes, partial failures, link/create, triggers | Local only: `npm test` |
+| [`apps-script/MN_Member_Sync.gs`](apps-script/MN_Member_Sync.gs) | OAuth setup and token refresh, the roster pull, UTC date pinning, the `MN Live` tab | Apps Script editor: a script file named `MN_Member_Sync` (Step 3) |
+| [`apps-script/HubSpot_Push.gs`](apps-script/HubSpot_Push.gs) | Change detection, the search-then-update push, `MN Unmatched` link/create, the daily trigger | Same project: a script file named `HubSpot_Push` (Step 3) |
+| [`tests/harness.mjs`](tests/harness.mjs) | Runs both `.gs` files unchanged in Node against fake Apps Script, Mighty and HubSpot services | Local only |
+| [`tests/sync.test.mjs`](tests/sync.test.mjs) | 19 tests: OAuth, paging, UTC dates, change-only pushes, partial failures, link/create, triggers | Local only: `npm test` |
 
 ## Table of contents
 
@@ -285,10 +285,10 @@ wording may differ) and give it a name such as `MN Last Visited Sync`.
 
 **3c. Add `MN_Member_Sync.gs`.** Next to **Files**, click **+** → **Script** (wording
 may differ). Name it `MN_Member_Sync` (Apps Script adds `.gs`). Delete the sample
-`function myFunction() {}` and paste in **all** of `apps-script/MN_Member_Sync.gs`.
+`function myFunction() {}` and paste in **all** of [`apps-script/MN_Member_Sync.gs`](apps-script/MN_Member_Sync.gs).
 
 **3d. Add `HubSpot_Push.gs`.** **+** → **Script** again, name it `HubSpot_Push`, delete
-the sample code and paste in **all** of `apps-script/HubSpot_Push.gs`.
+the sample code and paste in **all** of [`apps-script/HubSpot_Push.gs`](apps-script/HubSpot_Push.gs).
 
 **3e.** If `Code.gs` still contains only the empty sample function, you can delete it
 (**⋮** next to the file → **Delete**, wording may differ). If this project already has
