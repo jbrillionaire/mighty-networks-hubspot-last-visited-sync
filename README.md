@@ -319,7 +319,7 @@ the Run dropdown lists functions such as `refreshRoster`, `checkCreds`,
 
 About 5 minutes.
 
-At the top of `MN_Member_Sync.gs`, replace the placeholders:
+At the top of [`MN_Member_Sync.gs`](apps-script/MN_Member_Sync.gs), replace the placeholders:
 
 | Constant | Placeholder in the repo | Replace with | Where it comes from |
 |---|---|---|---|
@@ -334,7 +334,7 @@ Optional constants you can leave as they are:
 
 | Constant | Default | Change it if |
 |---|---|---|
-| `TARGET_TAB` | `"MN Live"` | Leave it. `HubSpot_Push.gs` reads it too. |
+| `TARGET_TAB` | `"MN Live"` | Leave it. [`HubSpot_Push.gs`](apps-script/HubSpot_Push.gs) reads it too. |
 | `PAGE_SIZE` | `50` | Don't. 50 is the schema maximum. |
 | `MAX_PAGES` | `400` | Your roster is over 20,000 members (400 × 50). |
 | `EXCLUDE_EMAIL_RE` | `/@(mightynetworks\.com|tfbnw\.net)$/i` | You want to keep Mighty's seeded staff and test accounts. Set it to `null`. In production, the first 50 members included four of them (Apple, Google and Login testers and a Mighty employee). |
@@ -446,7 +446,7 @@ REDIRECT_URI: https://your-community.mn.co/
 | A length other than 43 | Truncated on paste. The input field cuts off the display, so you can't see it by eye. | Copy again from **Reveal** and paste into the property. |
 | `An unknown error has occurred, please try again later.` when running a function | A transient Apps Script error. It happened once in the build. | Click **Run** again. The retry worked. |
 
-**6e. Fallback: set them in code.** `MN_Member_Sync.gs` includes `setScriptProps()`.
+**6e. Fallback: set them in code.** [`MN_Member_Sync.gs`](apps-script/MN_Member_Sync.gs) includes `setScriptProps()`.
 Temporarily replace `PASTE_CLIENT_ID` and `PASTE_CLIENT_SECRET` with your real values,
 save, run **`setScriptProps`** (log: `Stored. Now clear the literals above so secrets
 aren't left in source.`), run **`checkCreds`** to confirm 43/43, then **put the
@@ -493,7 +493,7 @@ https://your-community.mn.co/?code=AbC123...&state=9f2c...
 **7c. Copy only the code.** That's everything after `code=` and before `&state`. Don't
 include `&state=...`.
 
-**7d. Add a temporary wrapper** at the bottom of `MN_Member_Sync.gs`. It's needed
+**7d. Add a temporary wrapper** at the bottom of [`MN_Member_Sync.gs`](apps-script/MN_Member_Sync.gs). It's needed
 because the Run dropdown can't pass an argument:
 
 ```javascript
@@ -693,7 +693,7 @@ About 3 minutes.
 **11a.** Pick a member ID from column A of your **`MN Live`** tab. Choose someone you
 know has a HubSpot contact with **MN Member ID** filled in.
 
-**11b.** Add a temporary wrapper at the bottom of `HubSpot_Push.gs`. The Run dropdown
+**11b.** Add a temporary wrapper at the bottom of [`HubSpot_Push.gs`](apps-script/HubSpot_Push.gs). The Run dropdown
 can't pass the argument, and `doTestOne` won't appear in the dropdown until you add it
 and save:
 
@@ -812,7 +812,7 @@ Linked 11, created 0, failed 0. Re-run pushLastVisitedToHubSpot() to confirm 0 u
 
 | You got | Cause | Fix |
 |---|---|---|
-| `Link batch HTTP 400: {"status":"error","message":"Property values were not valid: [{\"isValid\":false,\"message\":\"1786334400000 is at 4:0:0.0 UTC, not midnight!\",\"error\":\"INVALID_DATE\",\"name\":\"mn_last_visited_network\"}, ...` followed by `Linked 0, created 0, failed 11.` | Hit in the build. Google Sheets turned the `2026-08-10` text into a local-midnight date, which is 04:00 UTC on Eastern time. The shipped code fixes this two ways: `writeUnmatched` sets the column to plain text, and `hsYmd()` normalizes the value. | Make sure you pasted the current `HubSpot_Push.gs`. Nothing is written on a failed batch, so just run it again. |
+| `Link batch HTTP 400: {"status":"error","message":"Property values were not valid: [{\"isValid\":false,\"message\":\"1786334400000 is at 4:0:0.0 UTC, not midnight!\",\"error\":\"INVALID_DATE\",\"name\":\"mn_last_visited_network\"}, ...` followed by `Linked 0, created 0, failed 11.` | Hit in the build. Google Sheets turned the `2026-08-10` text into a local-midnight date, which is 04:00 UTC on Eastern time. The shipped code fixes this two ways: `writeUnmatched` sets the column to plain text, and `hsYmd()` normalizes the value. | Make sure you pasted the current [`HubSpot_Push.gs`](apps-script/HubSpot_Push.gs). Nothing is written on a failed batch, so just run it again. |
 | `Nothing in MN Unmatched.` | Nothing to do. | Normal. |
 | `Email search HTTP ...` | A search failed. Those rows are treated as new. | Run `previewUnmatched` again before you apply. |
 | `Create batch HTTP 409 ...` (not seen in the build) | Probably an email conflict with an existing contact. | Find the contact by email and set its **MN Member ID** by hand. |
@@ -890,7 +890,7 @@ Daily 4am dailySync installed (roster pull + HubSpot push).
 ```
 
 > ⚠️ **Use `installDailySyncTrigger`, not `installDailyTrigger`.** Both are in the code.
-> `installDailyTrigger` (in `MN_Member_Sync.gs`) schedules only `refreshRoster`, so
+> `installDailyTrigger` (in [`MN_Member_Sync.gs`](apps-script/MN_Member_Sync.gs)) schedules only `refreshRoster`, so
 > HubSpot would never update. `installDailySyncTrigger` removes that trigger if it
 > exists.
 
@@ -972,7 +972,7 @@ refresh token.
 |---|---|---|
 | No **OAuth Applications** or **Headless API** under **Admin → Integrations** | Your network doesn't have Headless API access. The Admin API has no last-active field. | [Step 1](#step-1-confirm-your-network-has-headless-api-access): ask Mighty for access |
 | Run dropdown doesn't list `refreshRoster`, `pushLastVisitedToHubSpot` or other functions | The file wasn't saved, or it was pasted into another project | [Step 3](#step-3-create-the-apps-script-project-and-paste-both-files) |
-| `ReferenceError: getSpreadsheet is not defined` / `TARGET_TAB is not defined` | `HubSpot_Push.gs` is in a different project from `MN_Member_Sync.gs` | [Step 3](#step-3-create-the-apps-script-project-and-paste-both-files): put both files in one project |
+| `ReferenceError: getSpreadsheet is not defined` / `TARGET_TAB is not defined` | [`HubSpot_Push.gs`](apps-script/HubSpot_Push.gs) is in a different project from [`MN_Member_Sync.gs`](apps-script/MN_Member_Sync.gs) | [Step 3](#step-3-create-the-apps-script-project-and-paste-both-files): put both files in one project |
 | `Exception: Unexpected error while getting the method or property openById` or similar (wording may differ) | `SPREADSHEET_ID` is still the placeholder or is wrong | [Step 4](#step-4-fill-in-the-four-config-values) |
 | Dates in `MN Live` or HubSpot are one day off | Script time zone and sheet time zone differ, or a date was converted through local time | [Step 3](#step-3-create-the-apps-script-project-and-paste-both-files) (3g) |
 | `checkCreds` shows `length: 0 (expect 43)` although the values appear in Project Settings | Script Properties didn't persist | [Step 6](#step-6-store-the-mighty-credentials-in-script-properties) (6e fallback) |
