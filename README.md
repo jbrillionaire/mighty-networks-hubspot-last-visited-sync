@@ -21,7 +21,7 @@ email or create them.
 
 This covers **last visited only**. Sending Mighty direct messages is a separate
 integration:
-[mighty-networks-hubspot-dm-integration](https://github.com/jbrillionaire/mighty-networks-hubspot-dm-integration).
+[mighty-networks-hubspot-dm-integration](https://github.com/carljibrilsulaimanii/mighty-networks-hubspot-dm-integration).
 
 ## Why it exists
 
@@ -1082,4 +1082,4 @@ time moves it to the previous day. They cover:
 
 ---
 
-Built by [Jibril Sulaiman](https://github.com/jbrillionaire).
+Built by [Jibril Sulaiman](https://github.com/carljibrilsulaimanii).
